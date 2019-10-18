@@ -1,0 +1,88 @@
+﻿@model Ch24ShoppingCartMVC.Models.CartViewModel
+@{
+    ViewBag.Title = "Payment";
+}
+@section css {
+    <link href="~/Content/Cart.css" rel="stylesheet" />
+}
+
+@using (@Html.BeginForm("ShippingConf", "Checkout", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        @Html.AntiForgeryToken()
+        <h2>Payment Information</h2>
+        <br />
+        <h3>Payment Method</h3>
+        <table>
+            <tr>
+                <td><h3>@Html.ActionLink("PayPal", "/PayPal", "Checkout")</h3></td>
+            </tr>
+
+        </table>
+        <h3>Enter Card Details</h3>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreditCardNumber, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CreditCardNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CreditCardNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CardType, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.CardType, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CardType, "", new { @class = "text-danger" })*@
+                <select id="ddlProducts" name="ddlProducts">
+                    <option>Select CardType</option>
+                   <option>Credit</option>
+                    <option>Debit</option>
+                </select>
+            </div>
+        </div>
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CardholderName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CardholderName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CardholderName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CardProvider, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select id="ddlProducts" name="ddlProducts">
+                    <option>Select Provider</option>
+                    <option>Visa</option>
+                    <option>Master</option>
+                    <option>American Express</option>
+                    <option>Discover</option>
+                    </select>
+</div>
+        </div>
+        <br />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ExpirationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ExpirationDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ExpirationDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        </div>
+        <br />
+        <br />
+        <input type="submit" id="btnAdd" value="Place Order" />
+        }
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+        }
